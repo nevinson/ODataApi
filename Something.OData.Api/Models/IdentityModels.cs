@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity;
 
 namespace Something.OData.Api.Models
 {
@@ -29,5 +30,8 @@ namespace Something.OData.Api.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<TodoList> TodoLists { get; set; }
     }
 }
