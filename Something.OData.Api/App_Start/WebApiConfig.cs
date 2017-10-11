@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using Microsoft.Owin.Security.OAuth;
+using Something.OData.Api.Models;
 using System.Web.Http;
-using Microsoft.Owin.Security.OAuth;
-using Newtonsoft.Json.Serialization;
+using System.Web.OData.Builder;
 
 namespace Something.OData.Api
 {
@@ -24,7 +21,15 @@ namespace Something.OData.Api
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
+                
             );
+
+            var modelBuilder = new ODataConventionModelBuilder();
+
+            modelBuilder.EntitySet<TodoItem>("Todos");
+            modelBuilder.EntitySet<TodoList>("TodoLists");
+
+            config.Routes.MapODataRoute("OData", "api", modelBuilder.GetEdmModel());
         }
     }
 }
